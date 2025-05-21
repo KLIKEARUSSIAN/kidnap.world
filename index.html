@@ -25,7 +25,7 @@
 
     .main-text {
       font-size: 3em;
-      font-weight: bold;
+      font-weight: normal; /* Unbolded */
       text-shadow: 1px 1px turquoise, -1px -1px turquoise, 0 0 10px turquoise, 0 0 20px turquoise, 0 0 30px turquoise;
       margin-bottom: 0.3em;
       position: relative;
@@ -39,20 +39,14 @@
       text-shadow: 0 0 5px turquoise, 0 0 10px turquoise;
       text-align: right;
       max-width: 100%;
-      width: 100%;
+      width: 110%; /* Slightly increased width */
     }
 
     .timer {
       position: absolute;
-      bottom: 80px;
+      bottom: 100px; /* Raised higher */
       font-size: 1.2em;
       text-shadow: 0 0 10px turquoise, 0 0 20px turquoise;
-    }
-
-    .locked {
-      overflow: hidden;
-      pointer-events: none;
-      cursor: none;
     }
   </style>
 </head>
@@ -67,17 +61,10 @@
   <script>
     const timerElement = document.getElementById("timer");
     const startTime = Date.now();
-    let lockupTriggered = false;
-    let intervalId;
 
     function updateTimer() {
       const now = Date.now();
       const diff = now - startTime;
-
-      if (diff >= 5000 && !lockupTriggered) {
-        triggerLockup();
-        return;
-      }
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -93,13 +80,7 @@
         `${milliseconds.toString().padStart(3, '0')}ms`;
     }
 
-    function triggerLockup() {
-      lockupTriggered = true;
-      clearInterval(intervalId);
-      document.body.classList.add("locked");
-    }
-
-    intervalId = setInterval(updateTimer, 33);
+    setInterval(updateTimer, 33);
   </script>
 </body>
 </html>
