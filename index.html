@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>2019.</title>
-  <!-- Import Orbitron font from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <title>2019. revived after 6 years.</title>
+  <!-- Import Press Start 2P font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -15,26 +15,34 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
     }
 
     .main-text {
-      font-size: 3em;
-      text-align: center;
+      font-size: 1.5em;
       text-shadow: 0 0 10px turquoise, 0 0 20px turquoise, 0 0 30px turquoise;
     }
 
     .subtitle {
-      margin-top: 15px;
-      font-size: 1.2em;
+      font-size: 0.6em;
       opacity: 0.7;
       text-shadow: 0 0 5px turquoise, 0 0 10px turquoise;
-      text-align: center;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
     }
   </style>
 </head>
 <body>
-  <div class="main-text">Thank you for contribution.</div>
-  <div class="subtitle">- mariah, emma, ridge, and "rez".</div>
+  <div class="container">
+    <div class="main-text">Thank you for contribution.</div>
+    <div class="subtitle">- mariah, emma, ridge, and "rez".</div>
+  </div>
 </body>
 </html>
