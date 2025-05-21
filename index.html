@@ -16,6 +16,7 @@
       align-items: center;
       flex-direction: column;
       font-family: 'DotGothic16', monospace;
+      position: relative;
     }
 
     .container {
@@ -24,23 +25,70 @@
     }
 
     .main-text {
-      font-size: 3em; /* Large size for visibility */
-      text-shadow: 0 0 10px turquoise, 0 0 20px turquoise, 0 0 30px turquoise;
+      font-size: 3em;
+      font-weight: bold;
+      text-shadow: 
+        1px 1px turquoise,
+        -1px -1px turquoise,
+        0 0 10px turquoise, 
+        0 0 20px turquoise, 
+        0 0 30px turquoise;
       margin-bottom: 1em;
+      position: relative;
+      display: inline-block;
     }
 
     .subtitle {
       font-size: 1em;
       opacity: 0.7;
       text-shadow: 0 0 5px turquoise, 0 0 10px turquoise;
-      position: relative;
+      position: absolute;
+      top: 100%;
+      right: 5%;
+      transform: translateY(-50%);
+      max-width: 100%;
+    }
+
+    .timer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 1.2em;
+      text-shadow: 0 0 10px turquoise, 0 0 20px turquoise;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="main-text">Thank you for contribution.</div>
-    <div class="subtitle">- mariah, emma, ridge, and "rez".</div>
+    <div class="main-text" id="mainText">
+      Thank you for contribution.
+      <div class="subtitle">- mariah, emma, ridge, and "rez".</div>
+    </div>
   </div>
+  <div class="timer" id="timer">00d 00h 00m 00s 000ms</div>
+
+  <script>
+    const timerElement = document.getElementById("timer");
+    const startTime = Date.now(); // capture page load time
+
+    function updateTimer() {
+      const now = Date.now();
+      const diff = now - startTime;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      const milliseconds = diff % 1000;
+
+      timerElement.textContent = 
+        `${days.toString().padStart(2, '0')}d ` +
+        `${hours.toString().padStart(2, '0')}h ` +
+        `${minutes.toString().padStart(2, '0')}m ` +
+        `${seconds.toString().padStart(2, '0')}s ` +
+        `${milliseconds.toString().padStart(3, '0')}ms`;
+    }
+
+    setInterval(updateTimer, 33); // update ~30 FPS
+  </script>
 </body>
 </html>
