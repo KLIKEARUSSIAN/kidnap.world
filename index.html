@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>2019.</title>
-  <!-- Import DotGothic16 font from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
   <style>
     body {
@@ -27,12 +26,7 @@
     .main-text {
       font-size: 3em;
       font-weight: bold;
-      text-shadow: 
-        1px 1px turquoise,
-        -1px -1px turquoise,
-        0 0 10px turquoise, 
-        0 0 20px turquoise, 
-        0 0 30px turquoise;
+      text-shadow: 1px 1px turquoise, -1px -1px turquoise, 0 0 10px turquoise, 0 0 20px turquoise, 0 0 30px turquoise;
       margin-bottom: 0.3em;
       position: relative;
       display: inline-block;
@@ -50,28 +44,40 @@
 
     .timer {
       position: absolute;
-      bottom: 60px; /* Moved higher from the bottom */
+      bottom: 80px;
       font-size: 1.2em;
       text-shadow: 0 0 10px turquoise, 0 0 20px turquoise;
+    }
+
+    .locked {
+      overflow: hidden;
+      pointer-events: none;
+      cursor: none;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="main-text" id="mainText">
-      Thank you for contribution.
-    </div>
+    <div class="main-text">Thank you for contribution.</div>
     <div class="subtitle">- mariah, emma, ridge, and "rez".</div>
   </div>
+
   <div class="timer" id="timer">00d 00h 00m 00s 000ms</div>
 
   <script>
     const timerElement = document.getElementById("timer");
     const startTime = Date.now();
+    let lockupTriggered = false;
+    let intervalId;
 
     function updateTimer() {
       const now = Date.now();
       const diff = now - startTime;
+
+      if (diff >= 5000 && !lockupTriggered) {
+        triggerLockup();
+        return;
+      }
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -79,7 +85,7 @@
       const seconds = Math.floor((diff / 1000) % 60);
       const milliseconds = diff % 1000;
 
-      timerElement.textContent = 
+      timerElement.textContent =
         `${days.toString().padStart(2, '0')}d ` +
         `${hours.toString().padStart(2, '0')}h ` +
         `${minutes.toString().padStart(2, '0')}m ` +
@@ -87,7 +93,13 @@
         `${milliseconds.toString().padStart(3, '0')}ms`;
     }
 
-    setInterval(updateTimer, 33);
+    function triggerLockup() {
+      lockupTriggered = true;
+      clearInterval(intervalId);
+      document.body.classList.add("locked");
+    }
+
+    intervalId = setInterval(updateTimer, 33);
   </script>
 </body>
 </html>
